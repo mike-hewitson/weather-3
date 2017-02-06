@@ -50,10 +50,12 @@
    :project/dev  {:dependencies [[prone "1.1.4"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.5.1"]
-                                 [pjstadig/humane-test-output "0.8.1"]]
-                  :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]]
-                  
-                  :source-paths ["env/dev/clj" "test/clj"]
+                                 [pjstadig/humane-test-output "0.8.1"]
+                                 [midje "1.6.3"]
+                                 [proto-repl "0.3.1"]]
+                  :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]
+                                 [lein-midje "3.1.3"]]
+                    :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)

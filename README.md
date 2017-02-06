@@ -2,20 +2,41 @@
 
 generated using Luminus version "2.9.11.30"
 
-FIXME
-
-## Prerequisites
-
-You will need [Leiningen][1] 2.0 or above installed.
-
-[1]: https://github.com/technomancy/leiningen
-
 ## Running
 
 To start a web server for the application, run:
 
     lein run
 
-## License
+Testing
 
-Copyright © 2017 FIXME
+   lein midje
+
+## heroku
+
+Create herulo environments
+
+```
+$ heroku new
+```
+
+Add database URI to environments
+
+To push to heroku
+
+```
+$ git push heroku master
+```
+
+To test locally first
+
+```
+$ heroku open
+```
+
+# to move from generated app to my one (copying in code)
+
+## project.clj
+
+Add midje and proto-repl to dev dependencies
+Add midje to plugins
