@@ -1,6 +1,7 @@
 (ns weather-3.db.core
   (:require [datomic.api :as d]
             [mount.core :refer [defstate]]
+            [clojure.tools.logging :as log]
             [weather-3.config :refer [env]]))
 
 (defstate conn
@@ -44,5 +45,12 @@
 (defn find-user [conn id]
   (let [user (d/q '[:find ?e :in $ ?id
                       :where [?e :user/id ?id]]
-                    (d/db conn) id)]
+                   (d/db conn) id)]
     (touch conn user)))
+
+(defn log-one-reading [reading]
+  (log/debug "database" (:database-url env))
+  (log/debug "reading :" reading)
+  @(-> (d/transact)
+       conn
+       reading))

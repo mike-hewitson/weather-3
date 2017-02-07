@@ -40,3 +40,13 @@ $ heroku open
 
 Add midje and proto-repl to dev dependencies
 Add midje to plugins
+Add clj-http to dependencies
+
+# to set up the database from new
+
+Use db_init.clj with repl
+Setup url to point to the correct database
+Create the database & schema using supplied functions
+No need to create initial locations
+
+TODO add how to run the logger
