@@ -49,4 +49,10 @@ Setup url to point to the correct database
 Create the database & schema using supplied functions
 No need to create initial locations
 
-TODO add how to run the logger
+# run the logger
+
+To run the logger to log one set of readings per location at the current time in the development environment.
+
+```
+$ lein run -m weather-3.log-data with-profile dev
+```
