@@ -74,21 +74,23 @@
 (defn readings-data []
   (map (fn [[name gps]] (create-update name gps)) locations))
 
-(defn log-one-reading [reading conn]
-  @(d/transact conn reading))
-
-(defn conn []
+(def conn
   (let [uri (:database-url
               (load-config :merge
                 [(source/from-system-props)
                  (source/from-env)]))]
     (d/connect uri)))
 
-(defn log-readings [conn]
-  (let [data (readings-data)]
-    (log/debug "the results :" (map #(log-one-reading % conn) data))))
+(defn log-one-reading [reading]
+  @(d/transact conn reading))
 
-; (log-readings)
+(defn log-readings []
+  (let [data (readings-data)]
+    (log/debug "the results :" (map #(log-one-reading %) data))))
+
+
+; TODO move history enquiry to code.db
+
 ;; but everything ever said is still there
 ; (def history (d/history (d/db conn)))
 ; (require '[clojure.pprint :as pp])
@@ -102,6 +104,6 @@
 ;      (pp/print-table [:e :a :v :tx :op]))
 
 (defn -main [& args]
-  (log-readings (conn))
+  (log-readings)
   (log/info "Logged one set of readings")
   (System/exit 0))

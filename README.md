@@ -56,3 +56,8 @@ To run the logger to log one set of readings per location at the current time in
 ```
 $ lein run -m weather-3.log-data with-profile dev
 ```
+
+For the scheduled job in Heroku, try the following 
+```
+lein trampoline run -m weather-3.log-data with-profile production
+```
