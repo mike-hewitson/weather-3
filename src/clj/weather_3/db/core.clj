@@ -60,7 +60,7 @@
   (map (fn [location] (d/pull (d/db conn)
                               '[*]
                               [:location/name location]))
-       ["London" "Sandton" "Paradise Beach"]))
+       ["Sandton" "Paradise Beach" "London"]))
 
 ; (def bob (d/connect (:database-url env)))
 ;
