@@ -52,6 +52,7 @@
     (touch conn user)))
 
 ; TODO include the time capability
+; TODO return the created at date in the message
 
 (defn get-reading-at-time
   "returns a collection a set of reading data for all locations at a specific time (optional)"

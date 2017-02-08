@@ -4,7 +4,8 @@
             [markdown.core :refer [md-to-html-string]]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
+            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
+            [clojure.tools.logging :as log]))
 
 (declare ^:dynamic *app-context*)
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
@@ -14,6 +15,7 @@
 (defn render
   "renders the HTML template located relative to resources/templates"
   [template & [params]]
+  (log/debug "params :" params)
   (content-type
     (ok
       (parser/render-file
