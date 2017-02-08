@@ -17,7 +17,6 @@
 ;     (touch conn user)))
 
 ; TODO include the time capability
-; TODO fix the last transaction date
 
 (defn get-reading-at-time
   "returns a collection a set of reading data for all locations at a specific time (optional)"
@@ -29,4 +28,9 @@
                               '[*]
                               [:location/name location]))
                     ["Sandton" "Paradise Beach" "London"])}
-    {:as-at (java.util.Date. (d/t->tx (d/basis-t db)))})))
+    {:as-at (->>
+             db
+             d/basis-t
+             d/t->tx
+             (d/entity db)
+             :db/txInstant)})))
