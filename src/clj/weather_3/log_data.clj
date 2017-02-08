@@ -59,7 +59,8 @@
 (defn get-data [gps]
   (let [my-url (str
                  "https://api.darksky.net/forecast/62888a9ff1907377b60a866701cf3338/"
-                 gps)
+                 gps
+                 "?units=si&exclude=minutely,hourly,alerts,flags")
         darksky-data (client/get my-url {:as :json})
         body (:body darksky-data)]
     (map (fn [[k v]]
