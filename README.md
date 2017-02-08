@@ -14,7 +14,7 @@ Testing
 
 ## heroku
 
-Create herulo environments
+Create heruko environments
 
 ```
 $ heroku new
@@ -39,18 +39,19 @@ Use db_init.clj with repl
 Setup url to point to the correct database
 Create the database & schema using supplied functions
 No need to create initial locations
+Don't forget to execute the functions in the repl
 
 # run the logger
 
 To run the logger to log one set of readings per location at the current time in the development environment.
 
 ```
-$ lein run -m weather-3.log-data with-profile dev
+$ lein trampoline run -m weather-3.log-data with-profile dev
 ```
 
 For the scheduled job in Heroku, try the following
 ```
-lein trampoline run -m weather-3.log-data with-profile production
+$ lein trampoline run -m weather-3.log-data with-profile production
 ```
 
 # to create a new version of this from a template

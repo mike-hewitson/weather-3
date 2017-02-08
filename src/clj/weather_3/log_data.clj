@@ -17,6 +17,7 @@
 
 ; TODO add doc strings
 ; TODO refactor code, this is ugly
+; TODO look at the various weather summaries (week, day, now)
 
 (def reading-names
   [[["day-summary"]
