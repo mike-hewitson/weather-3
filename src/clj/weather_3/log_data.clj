@@ -1,10 +1,3 @@
-;   Copyright (c) Cognitect, Inc. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file epl-v10.html at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
 (ns weather-3.log-data
   (:require [datomic.api :as d]
             [clj-http.client :as client]
@@ -15,13 +8,33 @@
 ; TODO add doc strings
 ; TODO refactor code, this is ugly
 
+(def icons-transform
+  { "day-sunny" "wi-day-sunny"
+    "clear-night" "wi-night-clear"
+    "rain" "wi-rain"
+    "wind" "wi-strong-wind"
+    "snow" "wi-snow"
+    "sleet" "wi-sleet"
+    "strong-wind" "wi-wind"
+    "fog" "wi-fog"
+    "cloudy" "wi-cloudy"
+    "day-cloudy" "wi-day-cloudy"
+    "partly-cloudy-day" "wi-day-sunny-overcast"
+    "night-cloudy" "wi-night-cloudy"
+    "partly-cloudy-night" "wi-night-partly-cloudy"
+    "hail" "wi-hail"
+    "thunderstorm" "wi-thunderstorm"
+    "tornado" "wi-tornado"
+    "clear-day" "wi-day-sunny"});
+
 (def reading-names
   [[["week-summary"]
     ["sunrise"]
     ["sunset"]
     ["day-summary"]
     ["now-summary"]
-    ["icon"]
+    ["icon" (fn [x] (icons-transform x))]
+    ; ["icon"]
     ["temperature" float]
     ["wind-speed" float]
     ["wind-bearing" long]

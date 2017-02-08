@@ -97,6 +97,7 @@
     :db.install/_attribute :db.part/db}])
 
   ;; add schema
+
 (defn add-schema []
  (let [conn (d/connect uri)]
    @(d/transact conn schema)))
