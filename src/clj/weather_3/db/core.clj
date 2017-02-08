@@ -17,12 +17,16 @@
 ;     (touch conn user)))
 
 ; TODO include the time capability
-; TODO return the created at date in the message
+; TODO fix the last transaction date
 
 (defn get-reading-at-time
   "returns a collection a set of reading data for all locations at a specific time (optional)"
   [& time]
-  (map (fn [location] (d/pull (d/db conn)
+  (let [db (d/db conn)]
+   (merge
+    {:readings (map (fn [location]
+                      (d/pull db
                               '[*]
                               [:location/name location]))
-       ["Sandton" "Paradise Beach" "London"]))
+                    ["Sandton" "Paradise Beach" "London"])}
+    {:as-at (java.util.Date. (d/t->tx (d/basis-t db)))})))
