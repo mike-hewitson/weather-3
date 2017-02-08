@@ -8,10 +8,16 @@
   (layout/render
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
+; (defn home-page []
+;   (let [reading (first (db/get-latest))]
+;    (layout/render
+;      "home.html" (merge
+;                   {:readings (seq (reading :sensors))}
+;                   {:created-at (reading :createdAt)}))))
+
 (defn about-page []
   (layout/render "about.html"))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page)))
-

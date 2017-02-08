@@ -33,15 +33,6 @@ To test locally first
 ```
 $ heroku open
 ```
-
-# to move from generated app to my one (copying in code)
-
-## project.clj
-
-Add midje and proto-repl to dev dependencies
-Add midje to plugins
-Add clj-http to dependencies
-
 # to set up the database from new
 
 Use db_init.clj with repl
@@ -57,7 +48,23 @@ To run the logger to log one set of readings per location at the current time in
 $ lein run -m weather-3.log-data with-profile dev
 ```
 
-For the scheduled job in Heroku, try the following 
+For the scheduled job in Heroku, try the following
 ```
 lein trampoline run -m weather-3.log-data with-profile production
 ```
+
+# to create a new version of this from a template
+
+## project.clj
+
+Add midje and proto-repl to dev dependencies
+Add midje to plugins
+Add clj-http to dependencies
+
+Copy weather icons directory into public
+Add into base.html
+Copy contents from home.html, and any other html pages
+
+Copy code from db.core
+Copy routes from home.clj and any others
+For clj files, don't forget to adjust the ns
