@@ -17,14 +17,14 @@
 
 ; TODO add doc strings
 ; TODO refactor code, this is ugly
-; TODO look at the various weather summaries (week, day, now)
 ; TODO change logging to use metric
 
 (def reading-names
-  [[["day-summary"]
+  [[["week-summary"]
     ["sunrise"]
     ["sunset"]
-    ["summary"]
+    ["day-summary"]
+    ["now-summary"]
     ["icon"]
     ["temperature" float]
     ["wind-speed" float]
@@ -37,6 +37,7 @@
    [[:daily :summary]
     [:data :sunsetTime]
     [:data :sunriseTime]
+    [:data :summary]
     [:currently :summary]
     [:currently :icon]
     [:currently :temperature]
@@ -62,11 +63,14 @@
         darksky-data (client/get my-url {:as :json})
         body (:body darksky-data)]
     (map (fn [[k v]]
-           (cond
-             (= k :daily) (v (:daily body))
-             (= k :data) (java.util.Date. (* 1000 (v (first (:data (:daily body))))))
-             (= k :currently) (v (:currently body))
-             :else nil))
+           (let [data (v (first (:data (:daily body))))]
+            (cond
+              (= k :daily) (v (:daily body))
+              (= k :data)  (if (string? data)
+                             data
+                             (java.util.Date. (* 1000 data)))
+              (= k :currently) (v (:currently body))
+              :else nil)))
          (last reading-names))))
 
 (defn create-update [location gps]
