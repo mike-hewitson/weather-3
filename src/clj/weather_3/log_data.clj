@@ -9,15 +9,11 @@
   (:require [datomic.api :as d]
             [clj-http.client :as client]
             [clojure.tools.logging :as log]
-            ; [weather-3.config :refer [env]]
-            ; [weather-3.db.core :as db]
             [cprop.core :refer [load-config]]
             [cprop.source :as source]))
-            ; [weather-3.db.core :refer [conn]]))
 
 ; TODO add doc strings
 ; TODO refactor code, this is ugly
-; TODO change logging to use metric
 
 (def reading-names
   [[["week-summary"]

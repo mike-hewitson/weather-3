@@ -1,68 +1,51 @@
-{% extends "base.html" %}
-{% block content %}
-<!-- <div class="row">
-  <div class="col-sm-12">
-    {{docs|markdown}}
-  </div>
-</div> -->
-<!-- <div class="jumbotron">
-    <h1>Welcome to guestbook</h1>
-    <p>Time to start building your site!</p>
-    <p><a class="btn btn-primary btn-lg" href="http://luminusweb.net">Learn more &raquo;</a></p>
-  </div> -->
-    <div class="row row-content">
-        <!-- <div ng-if="!showCurrent">
-            <h3>{{message}}</h3>
-        </div> -->
-        <div class="col-xs-12">
-            <h2>Right now</h2>
-            <ul class="tab-pane fade in active">
+{% extends "base.html" %} {% block content %}
+<div class="row row-content">
+    <div class="col-xs-12">
+        <h2>Right now</h2>
+        <ul class="tab-pane fade in active">
             {% for item in readings %}
-                    <div class="row">
-                        <table class="table">
-                            <h3>{{item.location/name}} <i class="wi {{item.readings/icon}}"></i></h3>
-                            <tbody>
-                                <tr>
-                                    <td>Week forecast:</td>
-                                    <td>{{item.readings/week-summary}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Day forecast:</td>
-                                    <td>{{item.readings/day-summary}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Sunrise:</td>
-                                    <td>{{item.readings/sunrise|date:"HH:mm:ss"}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Sunset:</td>
-                                    <td>{{item.readings/sunset|date:"HH:mm:ss"}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Weather now:</td>
-                                    <td>{{item.readings/summary}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Temperature:</td>
-                                    <td>{{item.readings/temperature}} °C</td>
-                                </tr>
-                                <tr>
-                                    <td>Wind speed:</td>
-                                    <td> {{item.readings/wind-speed}} km/hr</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="row">
+                <table class="table">
+                    <h3>{{item.location/name}} <i class="wi {{item.readings/icon}}"></i></h3>
+                    <tbody>
+                        <tr>
+                            <td>Week forecast:</td>
+                            <td>{{item.readings/week-summary}}</td>
+                        </tr>
+                        <tr>
+                            <td>Day forecast:</td>
+                            <td>{{item.readings/day-summary}}</td>
+                        </tr>
+                        <tr>
+                            <td>Sunrise:</td>
+                            <td>{{item.readings/sunrise|date:"HH:mm:ss"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Sunset:</td>
+                            <td>{{item.readings/sunset|date:"HH:mm:ss"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Weather now:</td>
+                            <td>{{item.readings/summary}}</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature:</td>
+                            <td>{{item.readings/temperature}} °C</td>
+                        </tr>
+                        <tr>
+                            <td>Wind speed:</td>
+                            <td> {{item.readings/wind-speed}} km/hr</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             {% endfor %}
-            </ul>
-        </div>
-        <div class="col-sm-3 col-sm-push-9">
-            <!-- <p> @ {{created-at}}</p> -->
-            <!-- <p>@ {{created-at}}<p> -->
-            <time>@ {{created-at|date:"yyyy-MM-dd HH:mm:ss"}}</time>
-        </div>
+        </ul>
     </div>
+    <div class="col-sm-3 col-sm-push-9">
+        <time>@ {{created-at|date:"yyyy-MM-dd HH:mm:ss"}}</time>
+    </div>
+</div>
 {% endblock %}
 
-<!-- TODO fix icons
-TODO clean up code -->
+<!-- TODO fix icons -->
