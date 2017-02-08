@@ -92,21 +92,6 @@
   (let [data (readings-data)]
     (log/debug "the results :" (map #(log-one-reading %) data))))
 
-
-; TODO move history enquiry to code.db
-
-;; but everything ever said is still there
-; (def history (d/history (d/db conn)))
-; (require '[clojure.pprint :as pp])
-; (->> (d/q '[:find ?e ?a ?v ?tx ?op
-;             :in $
-;             :where [?e :location/name "London"]
-;             [?e ?a ?v ?tx ?op]]
-;           history)
-;      (map #(zipmap [:e :a :v :tx :op] %))
-;      (sort-by :tx)
-;      (pp/print-table [:e :a :v :tx :op]))
-
 (defn -main [& args]
   (log-readings)
   (log/info "Logged one set of readings")
