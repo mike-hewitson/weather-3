@@ -8,7 +8,7 @@
 (defn home-page []
   (let [readings (db/get-reading-at-time)]
    (layout/render
-     "home.html"
+    "home.html"
     (merge {:readings (:readings readings)}
            {:created-at (:as-at readings)}))))
 
