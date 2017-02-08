@@ -16,6 +16,7 @@
             ; [weather-3.db.core :refer [conn]]))
 
 ; TODO add doc strings
+; TODO refactor code, this is ugly
 
 (def reading-names
   [[["day-summary"]

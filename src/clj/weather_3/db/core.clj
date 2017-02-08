@@ -8,24 +8,26 @@
           :start (-> env :database-url d/connect)
           :stop (-> conn .release))
 
-(defn create-schema []
-  (let [schema [{:db/ident              :user/id
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}
-                {:db/ident              :user/first-name
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}
-                {:db/ident              :user/last-name
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}
-                {:db/ident              :user/email
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}]]
-    @(d/transact conn schema)))
+; TODO remove commented out code
+
+; (defn create-schema []
+;   (let [schema [{:db/ident              :user/id
+;                  :db/valueType          :db.type/string
+;                  :db/cardinality        :db.cardinality/one
+;                  :db.install/_attribute :db.part/db}
+;                 {:db/ident              :user/first-name
+;                  :db/valueType          :db.type/string
+;                  :db/cardinality        :db.cardinality/one
+;                  :db.install/_attribute :db.part/db}
+;                 {:db/ident              :user/last-name
+;                  :db/valueType          :db.type/string
+;                  :db/cardinality        :db.cardinality/one
+;                  :db.install/_attribute :db.part/db}
+;                 {:db/ident              :user/email
+;                  :db/valueType          :db.type/string
+;                  :db/cardinality        :db.cardinality/one
+;                  :db.install/_attribute :db.part/db}]]
+;     @(d/transact conn schema)))
 
 (defn entity [conn id]
   (d/entity (d/db conn) id))
@@ -36,14 +38,30 @@
   (let [e (partial entity conn)]
     (map #(-> % first e d/touch) results)))
 
-(defn add-user [conn {:keys [id first-name last-name email]}]
-  @(d/transact conn [{:db/id           id
-                      :user/first-name first-name
-                      :user/last-name  last-name
-                      :user/email      email}]))
+; (defn add-user [conn {:keys [id first-name last-name email]}]
+;   @(d/transact conn [{:db/id           id
+;                       :user/first-name first-name
+;                       :user/last-name  last-name
+;                       :user/email      email}]))
 
 (defn find-user [conn id]
   (let [user (d/q '[:find ?e :in $ ?id
                       :where [?e :user/id ?id]]
-                   (d/db conn) id)]
+                   (d/db conn)
+                   id)]
     (touch conn user)))
+
+; TODO include the time capability
+
+(defn get-reading-at-time
+  "returns a collection a set of reading data for all locations at a specific time (optional)"
+  [& time]
+  (map (fn [location] (d/pull (d/db conn)
+                              '[*]
+                              [:location/name location]))
+       ["London" "Sandton" "Paradise Beach"]))
+
+; (def bob (d/connect (:database-url env)))
+;
+; (d/pull (d/db bob) '[*] [:location/name "London"])
+; (d/pull (d/db bob) '[*] 17592186045419)

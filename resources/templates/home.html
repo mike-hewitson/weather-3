@@ -17,10 +17,10 @@
         <div class="col-xs-12">
             <h2>Right now</h2>
             <ul class="tab-pane fade in active">
-            {% for item in readings %}
+            <!-- {% for item in readings %}
                     <div class="row">
                         <table class="table">
-                            <h3>{{item.sensor}} <i class="wi {{item.icon}}"></i></h3>
+                            <h3>{{item.location/name}} <i class="wi {{item.icon}}"></i></h3>
                             <tbody>
                                 <tr>
                                     <td>Day forecast:</td>
@@ -49,11 +49,12 @@
                             </tbody>
                         </table>
                     </div>
-            {% endfor %}
+            {% endfor %} -->
             </ul>
         </div>
         <div class="col-sm-3 col-sm-push-9">
             <!-- <p> @ {{created-at}}</p> -->
+            <p>@ {{created-at}}<p>
             <time>@ {{created-at|date:"yyyy-MM-dd HH:mm:ss"}}</time>
         </div>
     </div>
