@@ -30,8 +30,8 @@
   (fact "it should contain 14 items"
     (count update) => 14)
   (fact "it should contain some correct data"
-    (first update) => {:readings/wind-bearing 31, :db/id [:location/name "London"]}
-    (last update) => {:db/id [:location/name "London"], :readings/precip-intensity 0.0})))
+    (not (empty? (filter #(:readings/sunrise %) update))) => true
+    (not (empty? (filter #(:readings/icon %) update))) => true)))
 
 (facts "about 'log-one-reading'"
   (let [result (->> (get-darksky-data "51.317,0.057")

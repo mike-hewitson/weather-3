@@ -33,7 +33,7 @@
     ["icon" (fn [x] (icons-transform x))]
     ; ["icon"]
     ["temperature" float]
-    ["wind-speed" float]
+    ["wind-speed" (fn [x] (* x 3.6))]
     ["wind-bearing" long]
     ["pressure" float]
     ["humidity" float]

@@ -19,8 +19,8 @@
    (init/add-schema uri)
    (init/add-locations uri)))
 
-(facts "about 'get-reading-at-a-time'"
-  (with-state-change [(before :contents) (initialze-db uri)]
+(future-facts "about 'get-reading-at-a-time'"
+  (with-state-change [(before :contents) (initialize-db uri)]
 ;   (let [reading (get-darksky-data "51.317,0.057")]
     (fact "given nothing it should return a map"
       (map? (get-reading-at-a-time)) => true)))
