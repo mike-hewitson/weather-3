@@ -14,9 +14,15 @@
 (def uri "datomic:free://localhost:4334/weather_3_test")
 ; (def uri "datomic:free://localhost:4334/weather_3")
 
-(defn create-database []
+(defn create-database
+  "create database"
+  [uri]
   (d/create-database uri))
 
+(defn delete-database
+  "delete database"
+  [uri]
+  (d/delete-database uri))
 
 (def schema
   [{:db/id #db/id [:db.part/db]
@@ -96,17 +102,19 @@
     :db/cardinality :db.cardinality/one
     :db.install/_attribute :db.part/db}])
 
-  ;; add schema
-
-(defn add-schema []
- (let [conn (d/connect uri)]
-   @(d/transact conn schema)))
+(defn add-schema
+  "add schema to database"
+  [uri]
+  (let [conn (d/connect uri)]
+    @(d/transact conn schema)))
 
 ;; add locations - not required
-(defn add-locations []
- (let [conn (d/connect uri)]
-   @(d/transact
-     conn
-     [[:db/add (d/tempid :db.part/user) :location/name "Sandton"]
-      [:db/add (d/tempid :db.part/user) :location/name "London"]
-      [:db/add (d/tempid :db.part/user) :location/name "Paradise Beach"]])))
+(defn add-locations
+  "add locations to database"
+  [uri]
+  (let [conn (d/connect uri)]
+    @(d/transact
+      conn
+      [[:db/add (d/tempid :db.part/user) :location/name "Sandton"]
+       [:db/add (d/tempid :db.part/user) :location/name "London"]
+       [:db/add (d/tempid :db.part/user) :location/name "Paradise Beach"]])))
