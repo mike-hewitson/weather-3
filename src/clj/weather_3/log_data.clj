@@ -5,8 +5,6 @@
             [cprop.core :refer [load-config]]
             [cprop.source :as source]))
 
-; TODO refactor code, this is ugly
-
 (def icons-transform
   { "day-sunny" "wi-day-sunny"
     "clear-night" "wi-night-clear"
@@ -62,40 +60,38 @@
    ["Sandton" "-26.097,28.053"]
    ["Paradise Beach" "-34.089,24.903"]])
 
-; TODO split out the data fetch doing two things
-; refactor code to make it testable
-
-(defn get-data
-  "retrive data from the darksky service for a specific location and format it into the correct tupe and structure"
+(defn get-darksky-data
+  "retrieve a set of readings from darksky.io for a gps location"
   [gps]
   (let [my-url (str
-                 "https://api.darksky.net/forecast/62888a9ff1907377b60a866701cf3338/"
-                 gps
-                 "?units=si&exclude=minutely,hourly,alerts,flags")
-        darksky-data (client/get my-url {:as :json})
-        body (:body darksky-data)]
+                "https://api.darksky.net/forecast/62888a9ff1907377b60a866701cf3338/"
+                gps
+                "?units=si&exclude=minutely,hourly,alerts,flags")]
+    (:body (client/get my-url {:as :json}))))
+
+
+(defn extract-reading-data
+  "extract the required data elements from the darksky message body"
+  [body]
+  (zipmap (first reading-names)
     (map (fn [[k v]]
            (let [data (v (first (:data (:daily body))))]
             (cond
               (= k :daily) (v (:daily body))
               (= k :data)  (if (string? data)
-                             data
-                             (java.util.Date. (* 1000 data)))
+                               data
+                               (java.util.Date. (* 1000 data)))
               (= k :currently) (v (:currently body))
               :else nil)))
          (last reading-names))))
 
 (defn create-update
-  "create a datomic transaction collection for one location"
-  [location gps]
-  (map (fn [[[name & [cast]] value]] {:db/id [:location/name location] (keyword (str "readings/" name))
-                                      (if cast (cast value) value)})
-       (zipmap (first reading-names) (get-data gps))))
-
-(defn readings-data
-  "get all reading data from darksky service"
-  []
-  (map (fn [[name gps]] (create-update name gps)) locations))
+  "create a Datomic update map for a location reading map"
+  [location reading-map]
+  (map (fn [[[name & [cast]] value]]
+         {:db/id [:location/name location] (keyword (str "readings/" name))
+          (if cast (cast value) value)})
+       reading-map))
 
 (def conn
   "load connection from config"
@@ -107,16 +103,20 @@
 
 (defn log-one-reading
   "logs readings for one location"
-  [reading]
+  [conn reading]
   @(d/transact conn reading))
-
-; TODO this feels like it needs to be fixed
 
 (defn log-readings
   "gets all of the data and writes to database"
   []
-  (let [data (readings-data)]
-    (log/debug "the results :" (map #(log-one-reading %) data))))
+  (log/debug
+   "the results :"
+   (map (fn [[location gps]]
+            (->> (get-darksky-data gps)
+                 (extract-reading-data)
+                 (create-update location)
+                 (log-one-reading conn)))
+        locations)))
 
 (defn -main [& args]
   (log-readings)

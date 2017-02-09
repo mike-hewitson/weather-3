@@ -22,6 +22,7 @@
 (defn get-reading-at-time
   "returns a collection a set of reading data for all locations at a specific time (optional)"
   [& time]
+  (log/debug "connection")
   (let [db (d/db conn)]
    (merge
     {:readings (map (fn [location]
@@ -48,3 +49,5 @@
         (map #(zipmap [:e :a :v :tx :op] %))
         (sort-by :tx)
         (pp/print-table [:e :a :v :tx :op]))))
+
+; TODO craete tests for get-reading

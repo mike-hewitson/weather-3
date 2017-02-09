@@ -10,8 +10,8 @@
             [clojure.tools.logging :as log]))
 
 
-(def uri "datomic:free://localhost:4334/weather_3_dev")
-; (def uri "datomic:free://localhost:4334/weather_3_test")
+; (def uri "datomic:free://localhost:4334/weather_3_dev")
+(def uri "datomic:free://localhost:4334/weather_3_test")
 ; (def uri "datomic:free://localhost:4334/weather_3")
 
 (defn create-database []
