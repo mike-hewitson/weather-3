@@ -25,7 +25,8 @@
                  [ring/ring-core "1.5.1"]
                  [ring/ring-defaults "0.2.2"]
                  [selmer "1.10.6"]
-                 [clj-http "2.3.0"]]
+                 [clj-http "2.3.0"]
+                 [clj-time "0.13.0"]]
 
   :min-lein-version "2.0.0"
 
