@@ -5,6 +5,8 @@
             [cprop.core :refer [load-config]]
             [cprop.source :as source]))
 
+; TODO move this to its own space
+
 (def icons-transform
   { "day-sunny" "wi-day-sunny"
     "clear-night" "wi-night-clear"

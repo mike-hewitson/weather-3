@@ -9,33 +9,17 @@
           :start (-> env :database-url d/connect)
           :stop (-> conn .release))
 
-
-; (defn find-user [conn id]
-;   (let [user (d/q '[:find ?e :in $ ?id
-;                       :where [?e :user/id ?id]]
-;                    (d/db conn)
-;                    id)]
-;     (touch conn user)))
-
-; TODO include the time capability
-
 (defn get-reading-at-time
   "returns a collection a set of reading data for all locations at a specific time (optional)"
-  [& time]
-  (log/debug "connection")
-  (let [db (d/db conn)]
+  [& [time]]
+  (let [db (if time (d/as-of (d/db conn) time) (d/db conn))]
    (merge
     {:readings (map (fn [location]
                       (d/pull db
                               '[*]
                               [:location/name location]))
                     ["Sandton" "Paradise Beach" "London"])}
-    {:as-at (->>
-             db
-             d/basis-t
-             d/t->tx
-             (d/entity db)
-             :db/txInstant)})))
+    {:as-at time})))
 
 (defn print-history
   "print database history for one location"

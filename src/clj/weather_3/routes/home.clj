@@ -5,7 +5,8 @@
             [clojure.java.io :as io]
             [weather-3.db.core :as db]
             [clj-time.core :as t]
-            [clj-time.coerce :as c]))
+            [clj-time.coerce :as c]
+            [clj-time.periodic :as p]))
 
 (defn home-page []
   (let [readings (db/get-reading-at-time)]
@@ -23,13 +24,8 @@
 
 (defn create-history-seq
   "create a sequence of 50 dates between a date and today"
-  [days-back])
-
-
-(def range (* 10 24 3600))
-(def interval (/ range 50))
-(take 10 (range (- (c/to-long (t/now)) range)
-                (c/to-long (t/now))
-                interval))
-(take 20 (range 0 100 9))
-(type (c/to-long (t/now)))
+  [days-back]
+  (let [interval (int (/ (* days 24  3600) 49))
+        from-date (t/minus (t/now) (t/days days))
+        dates-at (take 50 (p/periodic-seq from-date (t/seconds interval)))])
+  (map #(db/get-reading-at-time (c/to-date %)) dates-at))

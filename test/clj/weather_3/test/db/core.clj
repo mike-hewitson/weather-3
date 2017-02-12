@@ -7,7 +7,8 @@
 
 
 ; TODO complete test
-; this is currently hard-coded to prvent nasty things hapenning
+
+; this is currently hard-coded to prevent nasty things hapenning
 (def uri "datomic:free://localhost:4334/weather_3_test")
 
 (defn initialize-db
@@ -25,5 +26,5 @@
     (fact "given nothing it should return a map"
       (map? data) => true)
     (fact "it should contain some correct data"
-      (:readings/cloud-cover bob)) => truthy
-      (:readings/now-summary bob)) => truthy)
+      (:readings/cloud-cover data)) => truthy
+      (:readings/now-summary data)) => truthy)
