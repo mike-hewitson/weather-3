@@ -35,3 +35,4 @@
         (pp/print-table [:e :a :v :tx :op]))))
 
 ; TODO craete tests for get-reading
+(cond-> (d/db conn) time (d/as-of time))

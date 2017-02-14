@@ -4,7 +4,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[bouncer "1.0.0"]
-                 [com.datomic/datomic-free "0.9.5394" :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-nop]]
+                 [com.datomic/datomic-free "0.9.5530" :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-nop]]
                  [compojure "1.5.2"]
                  [cprop "0.1.10"]
                  [luminus-immutant "0.2.3"]

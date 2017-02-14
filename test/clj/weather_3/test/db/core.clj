@@ -7,6 +7,8 @@
 
 
 ; TODO complete test
+; Need to add fixtures with specfic 
+
 
 ; this is currently hard-coded to prevent nasty things hapenning
 (def uri "datomic:free://localhost:4334/weather_3_test")
