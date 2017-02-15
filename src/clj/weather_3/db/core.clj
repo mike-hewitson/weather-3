@@ -9,30 +9,32 @@
           :start (-> env :database-url d/connect)
           :stop (-> conn .release))
 
+(def locations
+  ["Sandton" "Paradise Beach" "London"])
+
 (defn get-reading-at-time
   "returns a collection a set of reading data for all locations at a specific time (optional)"
   [& [time]]
-  (let [db (if time (d/as-of (d/db conn) time) (d/db conn))]
-   (merge
-    {:readings (map (fn [location]
+  (let [db (cond-> (d/db conn)
+                   time (d/as-of time))]
+   {:readings (map (fn [location]
                       (d/pull db
                               '[*]
                               [:location/name location]))
-                    ["Sandton" "Paradise Beach" "London"])}
-    {:as-at time})))
+                   locations)
+    :as-at (->> (d/q '[:find (max ?tx) . :in $ [?e ...] :where [?e _ _ ?tx]]
+                     db
+                     (map (fn [l] [:location/name l]) locations))
+                (d/pull db '[*])
+                :db/txInstant)}))
 
 (defn print-history
   "print database history for one location"
-  []
-  (let [history (d/history (d/db conn))]
-   (->> (d/q '[:find ?e ?a ?v ?tx ?op
-               :in $
-               :where [?e :location/name "London"]
-               [?e ?a ?v ?tx ?op]]
-             history)
-        (map #(zipmap [:e :a :v :tx :op] %))
-        (sort-by :tx)
-        (pp/print-table [:e :a :v :tx :op]))))
+  [location]
+  (->> (d/datoms (d/history (d/db conn))
+                 :eavt [:location/name location])
+       seq (sort-by :tx)
+       (map (fn [[e a v t op]] {:e e :a a :v v :t t :op op}))
+       (pp/print-table [:e :a :v :tx :op])))
 
-; TODO craete tests for get-reading
-(cond-> (d/db conn) time (d/as-of time))
+; TODO create tests for get-reading

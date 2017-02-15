@@ -25,7 +25,9 @@
 (defn create-history-seq
   "create a sequence of 50 dates between a date and today"
   [days-back]
-  (let [interval (int (/ (* days 24  3600) 49))
-        from-date (t/minus (t/now) (t/days days))
-        dates-at (take 50 (p/periodic-seq from-date (t/seconds interval)))])
-  (map #(db/get-reading-at-time (c/to-date %)) dates-at))
+  (let [interval (int (/ (* days-back 24  3600) 49))
+        from-date (t/minus (t/now) (t/days days-back))
+        dates-at (take 50 (p/periodic-seq from-date (t/seconds interval)))]
+   (map #(db/get-reading-at-time (c/to-date %)) dates-at)))
+
+;TODO adjusr rreadings resolution when grapghs are visual

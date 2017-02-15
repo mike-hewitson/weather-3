@@ -6,6 +6,8 @@
             [cprop.source :as source]))
 
 ; TODO move this to its own space
+; TODO include rounding off of numerics
+; TODO setup wind directions in retreive
 
 (def icons-transform
   { "day-sunny" "wi-day-sunny"

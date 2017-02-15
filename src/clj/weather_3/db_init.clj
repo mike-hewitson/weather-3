@@ -18,82 +18,97 @@
   (d/delete-database uri))
 
 (def schema
-  [{:db/id #db/id [:db.part/db]
+  [{
+    ; :db/id #db/id [:db.part/db]
     :db/ident :location/name
     :db/valueType :db.type/string
     :db/unique :db.unique/identity
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/now-summary
     :db/valueType :db.type/string
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/day-summary
     :db/valueType :db.type/string
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/week-summary
     :db/valueType :db.type/string
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/sunrise
     :db/valueType :db.type/instant
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/sunset
     :db/valueType :db.type/instant
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/icon
     :db/valueType :db.type/string
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/temperature
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/wind-speed
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/wind-bearing
     :db/valueType :db.type/long
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/pressure
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/humidity
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/precip-probability
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/precip-intensity
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/id #db/id [:db.part/db]
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
     :db/ident :readings/cloud-cover
     :db/valueType :db.type/float
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}])
+    :db/cardinality :db.cardinality/one}])
+    ; :db.install/_attribute :db.part/db}])
 
 (defn add-schema
   "add schema to database"
@@ -108,6 +123,8 @@
   (let [conn (d/connect uri)]
     @(d/transact
       conn
-      [[:db/add (d/tempid :db.part/user) :location/name "Sandton"]
-       [:db/add (d/tempid :db.part/user) :location/name "London"]
-       [:db/add (d/tempid :db.part/user) :location/name "Paradise Beach"]])))
+      [[:db/add :location/name "Sandton"]
+       [:db/add :location/name "London"]
+       [:db/add :location/name "Paradise Beach"]])))
+
+; TODO Test this: it has all been changed to use simplified temp-ids and schemas, not tested yet. Remove commented elements after testing.
