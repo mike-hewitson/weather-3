@@ -17,16 +17,8 @@
                             <td>{{item.readings/day-summary}}</td>
                         </tr>
                         <tr>
-                            <td>Sunrise:</td>
-                            <td>{{item.readings/sunrise|date:"HH:mm:ss"}}</td>
-                        </tr>
-                        <tr>
-                            <td>Sunset:</td>
-                            <td>{{item.readings/sunset|date:"HH:mm:ss"}}</td>
-                        </tr>
-                        <tr>
-                            <td>Weather now:</td>
-                            <td>{{item.readings/now-summary}}</td>
+                            <td>Sunrise/Sunset:</td>
+                            <td>{{item.readings/sunrise|date:"HH:mm:ss"}} / {{item.readings/sunset|date:"HH:mm:ss"}}</td>
                         </tr>
                         <tr>
                             <td>Temperature:</td>
