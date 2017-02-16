@@ -9,7 +9,7 @@
           :start (-> env :database-url d/connect)
           :stop (-> conn .release))
 
-(def locations
+(defonce locations
   ["Sandton" "Paradise Beach" "London"])
 
 (defn get-reading-at-time

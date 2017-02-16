@@ -6,14 +6,30 @@
             [weather-3.db.core :as db]
             [clj-time.core :as t]
             [clj-time.coerce :as c]
-            [clj-time.periodic :as p]))
+            [clj-time.periodic :as p]
+            [clojure.math.numeric-tower :as m]))
+
+(def wind-directions
+  ["N" "NE" "E" "SE" "S" "SW" "W" "NW"])
+
+(defn get-direction
+  "translater wind bearing to direction in text"
+  [bearing]
+  (wind-directions (m/round (/ bearing 45))))
+
+(defn add-direction-into-readings
+  "include the direction element into the reading"
+  [readings]
+  (map (fn [reading]
+         (assoc reading :wind-direction (get-direction (:readings/wind-bearing reading))))
+       readings))
 
 (defn home-page []
   (let [readings (db/get-reading-at-time)]
    (layout/render
     "home.html"
-    (merge {:readings (:readings readings)}
-           {:created-at (:as-at readings)}))))
+    {:readings (add-direction-into-readings (:readings readings))
+     :created-at (:as-at readings)})))
 
 (defn about-page []
   (layout/render "about.html"))
