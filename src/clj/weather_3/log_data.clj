@@ -3,11 +3,10 @@
             [clj-http.client :as client]
             [clojure.tools.logging :as log]
             [cprop.core :refer [load-config]]
-            [cprop.source :as source]))
+            [cprop.source :as source]
+            [clojure.math.numeric-tower :as m]))
 
 ; TODO move this to its own space
-; TODO include rounding off of numerics
-; TODO setup wind directions in retreive
 
 (def icons-transform
   { "day-sunny" "wi-day-sunny"
@@ -28,6 +27,11 @@
     "tornado" "wi-tornado"
     "clear-day" "wi-day-sunny"});
 
+(defn float-and-round
+  "cast to float after rounding to one decimal"
+  [x]
+  (float (/ (m/round (* x 10)) 10)))
+
 (def reading-names
   [[["week-summary"]
     ["sunrise"]
@@ -36,10 +40,10 @@
     ["now-summary"]
     ["icon" (fn [x] (icons-transform x))]
     ; ["icon"]
-    ["temperature" float]
-    ["wind-speed" (fn [x] (* x 3.6))]
+    ["temperature" float-and-round]
+    ["wind-speed" (fn [x] (float-and-round(* x 3.6)))]
     ["wind-bearing" long]
-    ["pressure" float]
+    ["pressure" float-and-round]
     ["humidity" float]
     ["precip-probability" float]
     ["precip-intensity" float]
