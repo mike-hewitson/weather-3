@@ -47,3 +47,4 @@
    (map #(db/get-reading-at-time (c/to-date %)) dates-at)))
 
 ;TODO adjusr rreadings resolution when grapghs are visual
+;TODO create seperate routes for history and summary

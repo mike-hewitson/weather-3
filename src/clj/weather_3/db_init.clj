@@ -3,8 +3,8 @@
             [clojure.tools.logging :as log]))
 
 
-; (def uri "datomic:free://localhost:4334/weather_3_dev")
-(def uri "datomic:free://localhost:4334/weather_3_test")
+(def uri "datomic:free://localhost:4334/weather_3_dev")
+; (def uri "datomic:free://localhost:4334/weather_3_test")
 ; (def uri "datomic:free://localhost:4334/weather_3")
 
 (defn create-database
@@ -35,6 +35,12 @@
     ; :db/id #db/id [:db.part/db]
     :db/ident :readings/day-summary
     :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+    ; :db.install/_attribute :db.part/db}
+   {
+    ; :db/id #db/id [:db.part/db]
+    :db/ident :readings/temperature-max
+    :db/valueType :db.type/float
     :db/cardinality :db.cardinality/one}
     ; :db.install/_attribute :db.part/db}
    {

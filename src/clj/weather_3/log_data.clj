@@ -6,8 +6,6 @@
             [cprop.source :as source]
             [clojure.math.numeric-tower :as m]))
 
-; TODO move this to its own space
-
 (def icons-transform
   { "day-sunny" "wi-day-sunny"
     "clear-night" "wi-night-clear"
@@ -34,12 +32,12 @@
 
 (def reading-names
   [[["week-summary"]
-    ["sunrise"]
-    ["sunset"]
+    ["temperature-max" float-and-round]
+    ["sunrise" (fn [x] (java.util.Date. (* 1000 x)))]
+    ["sunset" (fn [x] (java.util.Date. (* 1000 x)))]
     ["day-summary"]
     ["now-summary"]
     ["icon" (fn [x] (icons-transform x))]
-    ; ["icon"]
     ["temperature" float-and-round]
     ["wind-speed" (fn [x] (float-and-round(* x 3.6)))]
     ["wind-bearing" long]
@@ -49,6 +47,7 @@
     ["precip-intensity" float]
     ["cloud-cover" float]]
    [[:daily :summary]
+    [:data :temperatureMax]
     [:data :sunriseTime]
     [:data :sunsetTime]
     [:data :summary]
@@ -86,9 +85,7 @@
            (let [data (v (first (:data (:daily body))))]
             (cond
               (= k :daily) (v (:daily body))
-              (= k :data)  (if (string? data)
-                               data
-                               (java.util.Date. (* 1000 data)))
+              (= k :data) data
               (= k :currently) (v (:currently body))
               :else nil)))
          (last reading-names))))
@@ -112,7 +109,10 @@
 (defn log-one-reading
   "logs readings for one location"
   [conn reading]
-  @(d/transact conn reading))
+  (log/debug "t before reading :" (d/basis-t (d/db conn)))
+  (log/debug "reading :" reading)
+  @(d/transact conn reading)
+  (log/debug "t after reading :" (d/basis-t (d/db conn))))
 
 (defn log-readings
   "gets all of the data and writes to database"
@@ -130,3 +130,5 @@
   (log-readings)
   (log/info "Logged one set of readings")
   (System/exit 0))
+
+;TODO fix the log-reading not to need the log/debug to make it work
