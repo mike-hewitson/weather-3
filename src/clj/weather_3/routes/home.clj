@@ -15,7 +15,7 @@
 (defn get-direction
   "translater wind bearing to direction in text"
   [bearing]
-  (wind-directions (mod (m/round (/ bearing 45))) 8))
+  (wind-directions (mod (m/round (/ bearing 45)) 8)))
 
 (defn add-direction-into-readings
   "include the direction element into the reading"
@@ -31,20 +31,9 @@
     {:readings (add-direction-into-readings (:readings readings))
      :created-at (:as-at readings)})))
 
-(defn about-page []
-  (layout/render "about.html"))
-
 (defroutes home-routes
-  (GET "/" [] (home-page))
-  (GET "/about" [] (about-page)))
+  (GET "/" [] (home-page)))
+  ; (GET "/summary" [] (summary-page)))
 
-(defn create-history-seq
-  "create a sequence of 50 dates between a date and today"
-  [days-back]
-  (let [interval (int (/ (* days-back 24  3600) 49))
-        from-date (t/minus (t/now) (t/days days-back))
-        dates-at (take 50 (p/periodic-seq from-date (t/seconds interval)))]
-   (map #(db/get-reading-at-time (c/to-date %)) dates-at)))
-
-;TODO adjusr rreadings resolution when grapghs are visual
 ;TODO create seperate routes for history and summary
+;TODO remove requires no needed

@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<div class="row row-content">
+    <div class="col-xs-12">
+        <h2>Empty Summary Page</h2>
+        <ul class="tab-pane fade in active">
+            {% for item in readings %}
+            <div class="row">
+                <table class="table">
+                    <h3>{{item.location/name}} <i class="wi {{item.readings/icon}}"></i></h3>
+                    <tbody>
+                        <tr>
+                            <td>Location:</td>
+                            <td>{{item.location/name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Readings Time:</td>
+                            <time>{{item.as-at|date:"yyyy-MM-dd HH:mm:ss"}}</time>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+<!-- TODO add table for readings data to test" -->
