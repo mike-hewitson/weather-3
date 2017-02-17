@@ -15,7 +15,7 @@
 (defn get-direction
   "translater wind bearing to direction in text"
   [bearing]
-  (wind-directions (m/round (/ bearing 45))))
+  (wind-directions (mod (m/round (/ bearing 45))) 8))
 
 (defn add-direction-into-readings
   "include the direction element into the reading"
