@@ -117,18 +117,14 @@
 (defn log-readings
   "gets all of the data and writes to database"
   []
-  (log/debug
-   "the results :"
-   (map (fn [[location gps]]
+  (run! (fn [[location gps]]
             (->> (get-darksky-data gps)
                  (extract-reading-data)
                  (create-update location)
                  (log-one-reading conn)))
-        locations)))
+        locations))
 
 (defn -main [& args]
   (log-readings)
   (log/info "Logged one set of readings")
   (System/exit 0))
-
-;TODO fix the log-reading not to need the log/debug to make it work
