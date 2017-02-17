@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block content %}
+<div class="row row-content">
+  <div class="col-xs-12">
+    <h2>Empty Summary Page</h2>
+    <ul class="tab-pane fade in active">
+      <div class="row">
+        <table class="table">
+          <thead>
+            <td>Location:</td>
+            <td>Readings Time:</td>
+          </thead>
+          <tbody>
+            {% for item in readings %}
+            <tr>
+              <td>{{item.location/name}}</td>
+              <td>
+                <time>{{item.as-at|date:"yyyy-MM-dd HH:mm:ss"}}</time>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@
   (:require [compojure.core :refer [routes wrap-routes]]
             [weather-3.layout :refer [error-page]]
             [weather-3.routes.home :refer [home-routes]]
-            [weather-3.routes.summary :refer [summary-routes]]
+            [weather-3.routes.history :refer [history-routes]]
             [compojure.route :as route]
             [weather-3.env :refer [defaults]]
             [mount.core :as mount]
@@ -17,7 +17,7 @@
     (-> #'home-routes
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
-    (-> #'summary-routes
+    (-> #'history-routes
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
     (route/not-found

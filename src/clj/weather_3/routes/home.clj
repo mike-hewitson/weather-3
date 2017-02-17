@@ -2,11 +2,7 @@
   (:require [weather-3.layout :as layout]
             [compojure.core :refer [defroutes GET]]
             [ring.util.http-response :as response]
-            [clojure.java.io :as io]
             [weather-3.db.core :as db]
-            [clj-time.core :as t]
-            [clj-time.coerce :as c]
-            [clj-time.periodic :as p]
             [clojure.math.numeric-tower :as m]))
 
 (def wind-directions
@@ -35,5 +31,4 @@
   (GET "/" [] (home-page)))
   ; (GET "/summary" [] (summary-page)))
 
-;TODO create seperate routes for history and summary
-;TODO remove requires no needed
+;TODO create seperate route for summary

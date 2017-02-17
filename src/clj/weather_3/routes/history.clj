@@ -1,13 +1,11 @@
-(ns weather-3.routes.summary
+(ns weather-3.routes.history
   (:require [weather-3.layout :as layout]
             [compojure.core :refer [defroutes GET]]
             [ring.util.http-response :as response]
-            [clojure.java.io :as io]
             [weather-3.db.core :as db]
             [clj-time.core :as t]
             [clj-time.coerce :as c]
-            [clj-time.periodic :as p]
-            [clojure.math.numeric-tower :as m]))
+            [clj-time.periodic :as p]))
 
 (defn create-history-seq
   "create a sequence of 50 dates between a date and today"
@@ -22,19 +20,16 @@
   (map (fn [x]
          (let [reading (first (:readings x))]
            {:as-at (:as-at x)
-            :readings/location (:location/name reading)}))
+            :location/name (:location/name reading)}))
        readings-list))
 
-(defn summary-page []
+(defn history-page []
    (layout/render
-    "summary.html"
+    "history.html"
     {:readings (create-display-list (create-history-seq 2))}))
 
-;TODO is this needed? Test.
-
-(defroutes summary-routes
-  (GET "/summary" [] (summary-page)))
+(defroutes history-routes
+  (GET "/history" [] (history-page)))
 
 ;TODO adjust readings resolution when graphs are visual
-;TODO remove requires no needed
-;TODO test this
+;TODO add a few other data items here
